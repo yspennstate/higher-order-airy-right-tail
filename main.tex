@@ -1,0 +1,575 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1.1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{array}
+\usepackage[title]{appendix}
+\usepackage[nameinlink,noabbrev,capitalise]{cleveref}
+
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\providecommand{\doi}[1]{\href{https://doi.org/#1}{doi:#1}}
+
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Var}{\operatorname{Var}}
+
+\title{The right tail of higher-order stochastic Airy operators and edges of unitary ensembles}
+\author{Yitzchak Shmalo\\
+Einstein Institute of Mathematics, The Hebrew University of Jerusalem\\
+Givat Ram, Jerusalem, Israel}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Krishnapur, Rider and Vir\'ag proposed a random Schr\"odinger operator $S_{\beta,k}$ on the half-line as the
+scaling limit of $\beta$-ensembles at a soft edge where the equilibrium density vanishes to the order $2k+1/2$. We
+show that the right tail of minus its lowest eigenvalue decays like $\exp(-c\,s^{(4k+3)/(4k+2)})$, with the exact
+constant given by a weighted Gagliardo--Nirenberg inequality; the exponent was known from a lower bound of
+Baslingker. For unitary ensembles the largest eigenvalue at such an edge has a much lighter tail, at most of order
+$\exp(-c\,s^{2k+3/2})$, whenever the limiting edge kernel decays accordingly, so the proposed limit fails for every
+scale constant. Baslingker proved this for $k=1$. For every $k\ge2$ it applies to an even polynomial potential
+studied by Dai, Du and Lu, whose edge kernel is a dilation of the kernel of Claeys, Its and Krasovsky, so the
+conjecture fails there.
+\end{abstract}
+
+\noindent\textbf{Keywords:} stochastic Airy operator; beta ensembles; higher-order Tracy--Widom laws; singular
+edge; large deviations.
+
+\noindent\textbf{MSC 2020:} 60B20; 15B52; 47B80.
+
+\section{Introduction}\label{sec:intro}
+
+Let $V$ be a real polynomial of even degree with positive leading coefficient, and consider $n$ points on $\R$ with
+joint density proportional to
+\begin{equation}\label{eq:ensemble}
+\prod_{i<j}|x_i-x_j|^{\beta}\exp\Big(-\frac{\beta n}{2}\sum_{i=1}^n V(x_i)\Big).
+\end{equation}
+For $\beta=2$ this is the eigenvalue density of the unitary ensemble with weight $e^{-n\operatorname{Tr}V(M)}$. The
+empirical measure converges to the equilibrium measure $\mu_V$ of $V$. At a right edge $E$ of its support the density
+of $\mu_V$ generically vanishes like a square root, and the largest point, rescaled by $n^{2/3}$, converges to the
+Tracy--Widom law; for every $\beta$ the limit is minus the lowest eigenvalue of the stochastic Airy operator
+\cite{RRV,KRV}. For a real analytic $V$ the density of $\mu_V$ can also vanish at an edge like $(E-x)^{2k+1/2}$ for an
+integer $k\ge1$. Krishnapur, Rider and Vir\'ag \cite[Conjecture~45]{KRVarxiv} (see also \cite[Conjecture~5]{Virag})
+proposed that in this case the tridiagonal model of \eqref{eq:ensemble}, rescaled by $n^{2/(4k+3)}$, converges to
+\begin{equation}\label{eq:operator}
+S_{\beta,k}=-\frac{d^2}{dt^2}+t^{1/(2k+1)}+\frac{2}{\sqrt\beta}\,t^{-k/(2k+1)}\,W'(t),\qquad t>0,
+\end{equation}
+with a Dirichlet condition at $0$, where $W$ is a standard Brownian motion. In particular the lowest eigenvalue
+$\Lambda_0$ of $S_{\beta,k}$ would be the limit in law of $\gamma n^{2/(4k+3)}(E-\lambda_{\max})$ for a constant
+$\gamma>0$ determined by $V$.
+
+Baslingker \cite{Bas} showed that this fails for $\beta=2$ and $k=1$. He proved the lower bound
+$\Prob(-\Lambda_0>s)\ge\exp(-c_\beta s^{(4k+3)/(4k+2)})$ for all $k\ge1$ and compared it with the right tail
+$\exp(-cs^{7/2})$ of the limiting law of the largest eigenvalue at $k=1$ \cite[(16)]{Bas}, which follows from the
+edge kernel of Claeys and Vanlessen \cite{CV} and the tail estimate of Claeys, Its and Krasovsky \cite{CIK}. He noted
+\cite[Remark~3]{Bas} that a heuristic tail estimate of Majumdar and Schehr \cite{MS} for $k>1$, together with his lower
+bound, suggests that the conjecture does not hold in general.
+
+Our first result identifies the right tail of $-\Lambda_0$ exactly. Put
+\begin{equation}\label{eq:gd}
+g=\frac{k}{2k+1},\qquad d=\frac1{2k+1},\qquad
+v_k=\sup_{0\ne u\in C_c^\infty(0,\infty)}\frac{\int_0^\infty t^{-2g}u(t)^4\,dt}{\bigl(\int_0^\infty(u'(t)^2+u(t)^2)\,dt\bigr)^2}.
+\end{equation}
+\Cref{lem:vk} shows that $0<v_k<\infty$.
+
+\begin{theorem}\label{thm:tail}
+Let $\beta>0$ and $k\ge1$, and let $\Lambda_0$ be the lowest eigenvalue of $S_{\beta,k}$. Then
+\[
+\lim_{s\to\infty}s^{-(4k+3)/(4k+2)}\log\Prob(\Lambda_0<-s)=-\frac{\beta}{8v_k}.
+\]
+\end{theorem}
+
+The exponent $(4k+3)/(4k+2)=\frac32-g$ is the one in Baslingker's lower bound \cite[(22)]{Bas}. Formally setting
+$k=0$ in \eqref{eq:gd} gives the unweighted constant; on the half-line it is approached by translates of $u(t)=\operatorname{sech}t$, so that
+$v_0=3/16$ and $\beta/(8v_0)=2\beta/3$, which is the right-tail constant of the Tracy--Widom law
+$\Prob(-\Lambda_0>s)=\exp(-(2\beta/3+o(1))s^{3/2})$ as $s\to\infty$ for the stochastic Airy operator \cite{DV,RRV}. The proof of
+\cref{thm:tail} does not cover $k=0$; see \cref{rem:k0}.
+
+Our second result is the comparison at $\beta=2$, separated from its kernel input. Here and below $c$ and $C$
+denote positive constants that may depend on $k$, $\beta$ and $V$ but not on $n$, $s$ or $u$; their values may
+change from line to line. Let $K_n(x,y)=e^{-n(V(x)+V(y))/2}\sum_{j<n}\varphi_j(x)\varphi_j(y)$ be the
+correlation kernel of \eqref{eq:ensemble} with $\beta=2$, where $\varphi_j$ are the orthonormal polynomials for the weight
+$e^{-nV}$ on $\R$; $K_n(x,x)$ is the one-point density of the $n$ points.
+
+\begin{theorem}\label{thm:counter}
+Let $k\ge1$ and let $V$ be a real polynomial whose equilibrium measure has density $\psi_V$ with
+$\psi_V(x)=c(E-x)^{2k+1/2}(1+O(E-x))$ as $x\uparrow E$, where $E$ is the right end of the support and $c>0$. Put
+$p=2k+3/2$ and $h=1/p=2/(4k+3)$. Suppose that for some constant $\kappa>0$, depending only on $V$, the kernels
+$\widetilde K_n(u,v)=\kappa^{-1}n^{-h}K_n(E+\kappa^{-1}n^{-h}u,E+\kappa^{-1}n^{-h}v)$ converge uniformly on compact subsets of
+$\R^2$ to a continuous kernel $K$, and that
+\begin{equation}\label{eq:H}
+\int_s^\infty K(u,u)\,du\le C e^{-cs^{p}}\qquad(s\ge1)
+\end{equation}
+for some $c,C>0$. Then for $\beta=2$ there is no constant $\gamma>0$ for which $\gamma n^{h}(E-\lambda_{\max})$
+converges in law to $\Lambda_0$, the lowest eigenvalue of $S_{2,k}$. The same holds along any subsequence of $n$.
+\end{theorem}
+
+\begin{corollary}\label{cor:all-k}
+Let $k\ge2$ and let $V$ be the potential of \cite[Remark~1.7]{DDL}, recalled in \cref{sec:ensemble}, whose equilibrium
+density vanishes like $c(a-x)^{2k+1/2}$ at the right end $E=a$ of its support. By \cite[Theorem~1.9]{DDL} and
+\cite[(1.23)]{CIK}, the kernels of $V$ satisfy the hypotheses of \cref{thm:counter}. Hence the conjecture
+\cite[Conjecture~45]{KRVarxiv} fails for $V$ at $\beta=2$, for every choice of the scale constant.
+\end{corollary}
+
+For $k\ge2$ the limit kernel at the edge of this potential is given by Dai, Du and Lu \cite[Theorem~1.9]{DDL}, a
+preprint. It is a dilation of the kernel of Claeys, Its and Krasovsky \cite{CIK}, whose decay \cite[(1.23)]{CIK} gives
+\eqref{eq:H} (\cref{sec:ensemble}). For general potentials with such an edge the limit kernel exists by
+\cite[Proposition~1.7 and Appendix~B]{CKLW}; the edge model problem is also studied in \cite{Atkin}.
+\Cref{thm:counter} isolates exactly what is used. For $k=1$ the limit kernel was identified
+by Claeys and Vanlessen \cite{CV}, and it satisfies the pointwise bound $K(u,u)\le Ce^{-cu^{7/2}}$ for $u\ge1$ by
+\cite[(1.23)]{CIK} and continuity, which implies \eqref{eq:H}; so \cref{thm:counter} gives Baslingker's theorem \cite[Theorem~4]{Bas}.
+
+\Cref{thm:counter} uses only two features of $\Lambda_0$: that $-\Lambda_0$ has a right tail heavier than
+$e^{-cs^{p}}$, and that it is a limit in law. Any proposed limit whose right tail is at least $e^{-Cs^2}$, for instance
+the lowest eigenvalue of any semibounded operator whose quadratic form on one fixed test vector is a nondegenerate
+Gaussian, is excluded in the same way. The theorem says nothing about what the correct limit is. The notation is collected in \cref{app:notation}.
+
+\section{The operator and the proof of \texorpdfstring{\cref{thm:tail}}{Theorem 1.1}}\label{sec:operator}
+
+Throughout, $k\ge1$ is fixed and $g,d$ are as in \eqref{eq:gd}, so $0<g<1/2$ and $d>0$. Write $\|\cdot\|$ for the norm
+of $L^2(0,\infty)$, and for $u\in C_c^\infty(0,\infty)$ put
+\[
+\mathcal E(u)=\int_0^\infty(u'^2+u^2),\qquad P(u)=\int_0^\infty t^d u^2,\qquad X(u)=\int_0^\infty t^{-g}u(t)^2\,dW(t).
+\]
+For fixed $u$ the variable $X(u)$ is centred Gaussian with variance $\int t^{-2g}u^4$, and the covariances are
+$\operatorname{Cov}(X(u_1),X(u_2))=\int t^{-2g}u_1^2u_2^2$.
+
+\begin{lemma}\label{lem:vk}
+$0<v_k<\infty$. More precisely $\int_0^\infty t^{-2g}u^4\le\bigl(1+\frac{1}{1-2g}\bigr)\mathcal E(u)^2$ for
+$u\in C_c^\infty(0,\infty)$.
+\end{lemma}
+
+\begin{proof}
+Positivity is clear. For $u\in C_c^\infty(0,\infty)$, $u(t)^2=-\int_t^\infty 2uu'$ gives
+$\|u\|_\infty^2\le2\|u\|\,\|u'\|\le \mathcal E(u)$. Hence
+$\int_0^1t^{-2g}u^4\le\|u\|_\infty^4/(1-2g)\le \mathcal E(u)^2/(1-2g)$, and
+$\int_1^\infty t^{-2g}u^4\le\|u\|_\infty^2\|u\|^2\le \mathcal E(u)^2$.
+\end{proof}
+
+\subsection{The noise term}
+
+For $j\ge0$ let $I_j=[j,j+1]$ and $Z_j(t)=\int_j^t r^{-g}\,dW(r)$ for $t\in I_j$; put
+$B=\sup_{j\ge0}\sup_{t\in I_j}|Z_j(t)|$.
+
+\begin{lemma}\label{lem:B}
+$\E B<\infty$, and almost surely, for every $u\in C_c^\infty(0,\infty)$,
+\begin{equation}\label{eq:Xbound}
+|X(u)|\le B\bigl(\|u\|^2+4\|u\|\,\|u'\|\bigr)\le 3B\,\mathcal E(u).
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+$Z_j$ is a continuous martingale on $I_j$ with quadratic variation at most $q_0=1/(1-2g)$ for $j=0$ and at most
+$q_j=j^{-2g}$ for $j\ge1$. By the reflection principle for a time-changed Brownian motion,
+$\Prob(\sup_{I_j}|Z_j|>b)\le4e^{-b^2/(2q_j)}$, so for $b\ge1$
+\[
+\Prob(B>b)\le4e^{-(1-2g)b^2/2}+4\sum_{j\ge1}e^{-b^2j^{2g}/2}\le4e^{-(1-2g)b^2/2}+4e^{-b^2/4}\sum_{j\ge1}e^{-j^{2g}/4},
+\]
+using $b^2j^{2g}/2\ge b^2/4+j^{2g}/4$ for $b,j\ge1$. The last sum is finite because $g>0$, so $\E B<\infty$.
+
+Integrating by parts on each $I_j$ (Itô's product rule; $u^2$ is deterministic and smooth),
+\begin{equation}\label{eq:ibp}
+\int_{I_j}t^{-g}u^2\,dW=Z_j(j+1)\,u(j+1)^2-\int_{I_j}Z_j\,(u^2)'\,dt .
+\end{equation}
+We take the sum over $j$ of the right side of \eqref{eq:ibp} as the definition of $X(u)$ for all $u$ at once; for
+each fixed $u$ it agrees almost surely with the It\^o integral, so the Gaussian description above is unchanged, and
+$X$ is a quadratic form in $u$ on every path. By \eqref{eq:ibp},
+$|\int_{I_j}t^{-g}u^2\,dW|\le B\,u(j+1)^2+2B\int_{I_j}|uu'|$. Writing $u(j+1)^2=u(x)^2+\int_x^{j+1}(u^2)'$ and
+averaging over $x\in I_j$ gives $u(j+1)^2\le\int_{I_j}u^2+2\int_{I_j}|uu'|$. Summing over $j$ (finitely many terms are
+nonzero) and using Cauchy--Schwarz gives the first inequality in \eqref{eq:Xbound}; the second follows from
+$4\|u\|\|u'\|\le2(\|u\|^2+\|u'\|^2)$.
+\end{proof}
+
+Since \eqref{eq:Xbound} holds for all $u$ on one event of probability one, polarisation shows that $X$ extends
+almost surely to a continuous quadratic form on the Sobolev space $H_0^1(0,\infty)$, and for every $\varepsilon>0$,
+$|X(u)|\le\varepsilon\|u'\|^2+(B+4B^2/\varepsilon)\|u\|^2$. Let $\mathcal H$ be the completion of
+$C_c^\infty(0,\infty)$ in the norm $\bigl(\|u'\|^2+\|u\|^2+P(u)\bigr)^{1/2}$. By the KLMN theorem
+\cite{RS2}, the form
+\[
+q(u)=\|u'\|^2+P(u)+\tfrac{2}{\sqrt\beta}X(u),\qquad u\in\mathcal H,
+\]
+is almost surely closed and bounded below, with $C_c^\infty(0,\infty)$ as a form core, and it defines $S_{\beta,k}$.
+Since $t^d\to\infty$, $\mathcal H$ embeds compactly into $L^2(0,\infty)$, so $S_{\beta,k}$ has discrete spectrum
+bounded below, and
+\begin{equation}\label{eq:var}
+\Lambda_0=\inf_{0\ne u\in D}\frac{q(u)}{\|u\|^2}
+\end{equation}
+for any countable set $D\subset C_c^\infty(0,\infty)$ dense in $\mathcal H$, by the core property and the continuity of
+$q$ on $\mathcal H$. This is the definition of \cite{KRVarxiv,Bas} through the quadratic form.
+
+\subsection{Scaling}
+
+For $s>0$ let $(U_sf)(t)=s^{1/4}f(\sqrt s\,t)$, a unitary map of $L^2(0,\infty)$ onto itself that maps
+$C_c^\infty(0,\infty)$ onto itself and is continuous on $\mathcal H$. Then
+\[
+\|(U_sf)'\|^2=s\|f'\|^2,\qquad P(U_sf)=s^{-d/2}P(f),
+\]
+\[
+\operatorname{Cov}\bigl(X(U_sf_1),X(U_sf_2)\bigr)=s^{1/2+g}\int_0^\infty t^{-2g}f_1^2f_2^2,
+\]
+the last by the change of variables $r=\sqrt s\,t$. Hence the centred Gaussian processes $(X(U_sf))_f$ and
+$(s^{1/4+g/2}X(f))_f$, indexed by $C_c^\infty(0,\infty)$, have the same finite-dimensional distributions. Choose $D$ in
+\eqref{eq:var} with $U_sD$ also dense in $\mathcal H$ (for example $D=U_s^{-1}D'$ with $D'$ countable and dense).
+Then \eqref{eq:var} and $\|U_sf\|=\|f\|$ give
+\[
+\{\Lambda_0<-s\}=\Big\{\exists f\in D:\ s\|f'\|^2+s^{-d/2}P(f)+\tfrac{2}{\sqrt\beta}X(U_sf)<-s\|f\|^2\Big\},
+\]
+and since the event depends only on countably many coordinates of the process,
+\[
+\Prob(\Lambda_0<-s)=\Prob\Big(\exists f\in D:\ -X(f)>\tfrac{\sqrt\beta}{2}\bigl(s^{3/4-g/2}\mathcal E(f)
++s^{-d/2-1/4-g/2}P(f)\bigr)\Big).
+\]
+All three terms are homogeneous of degree two in $f$, so we may restrict to $\mathcal E(f)=1$. Write
+$r_s=\frac{\sqrt\beta}{2}s^{3/4-g/2}$; then $r_s^2/(2v)=\beta s^{\frac32-g}/(8v)$ for every $v>0$, and
+$\frac32-g=(4k+3)/(4k+2)$.
+
+\begin{proof}[Proof of \cref{thm:tail}: upper bound]
+Dropping $P(f)\ge0$,
+\[
+\Prob(\Lambda_0<-s)\le\Prob\Big(\sup_{f\in D,\,\mathcal E(f)=1}-X(f)>r_s\Big).
+\]
+The family $\{-X(f):f\in D,\,\mathcal E(f)=1\}$ is a countable centred Gaussian family. By \cref{lem:B} its supremum $Y$
+satisfies $\E Y\le3\E B<\infty$, and by \cref{lem:vk} and the density of $D$ its largest variance is
+$\sup_{\mathcal E(f)=1}\int t^{-2g}f^4=v_k$. The Borell--TIS inequality \cite{Borell,TIS}, \cite[Theorem~2.1.1]{AT} gives
+\[
+\Prob(Y>r)\le\exp\bigl(-(r-\E Y)^2/(2v_k)\bigr)\qquad(r>\E Y).
+\]
+With $r=r_s$ this gives
+$\limsup_{s\to\infty}s^{-(3/2-g)}\log\Prob(\Lambda_0<-s)\le-\beta/(8v_k)$.
+\end{proof}
+
+\begin{proof}[Proof of \cref{thm:tail}: lower bound]
+Fix $f\in C_c^\infty(0,\infty)$ with $\mathcal E(f)=1$ and $v=\int t^{-2g}f^4>0$. Taking this single $f$ in the scaled
+event (we may include it in $D$),
+\[
+\Prob(\Lambda_0<-s)\ge\Prob\bigl(-X(f)>r_s(1+s^{-1-d/2}P(f))\bigr),
+\]
+and $-X(f)$ is centred Gaussian with variance $v$. Since $r_s(1+s^{-1-d/2}P(f))=r_s(1+o(1))$ as $s\to\infty$, the Gaussian tail gives
+$\liminf_{s\to\infty}s^{-(3/2-g)}\log\Prob(\Lambda_0<-s)\ge-\beta/(8v)$. Letting $v$ increase to $v_k$ over such $f$
+proves the lower bound.
+\end{proof}
+
+\begin{remark}\label{rem:k0}
+Both $g<1/2$ and $g>0$ are used: the first for integrability of $t^{-2g}$ at the origin in \cref{lem:vk,lem:B}, the
+second for the summability over the infinitely many intervals $I_j$ in \cref{lem:B}. At $g=0$ the supremum of
+$-X(f)$ over $\mathcal E(f)=1$ is almost surely infinite once the confining term is dropped, so the argument above does not
+apply to the stochastic Airy operator, although the constant it produces agrees with the known one.
+\end{remark}
+
+\section{Ensembles with an edge of exponent \texorpdfstring{$2k+1/2$}{2k+1/2}}\label{sec:ensemble}
+
+For $k\ge1$ let $a>0$ be given by $a^{4k+2}=2^{2k+2}(2k+1)!/(4k+1)!!$ and let
+\[
+V(x)=\sum_{j=0}^{2k}(-1)^j\binom{2k+\frac12}{j}\frac{a^{2j}}{4k+2-2j}\,x^{4k+2-2j},
+\]
+the potential of \cite[Remark~1.7]{DDL}. It is even, of degree $4k+2$, with leading coefficient $1/(4k+2)$. Let
+$Q(z)=(z^2-a^2)^{2k+1/2}$ on $\C\setminus[-a,a]$, with the branch for which $Q(z)/z^{4k+1}\to1$ as $z\to\infty$. Expanding
+$Q(z)=z^{4k+1}(1-a^2z^{-2})^{2k+1/2}$ shows that $V'$ is the polynomial part of the Laurent expansion of $Q$ at infinity,
+so $Q-V'=O(z^{-1})$. Dai, Du and Lu \cite[Remark~1.7]{DDL} state that $V$ satisfies \cite[Assumptions~1.1]{DDL} and
+that its equilibrium density is the function $\rho$ below. We record the computation in the normalisation of
+\eqref{eq:ensemble}, and in \cref{lem:ddl} we give deformation directions $V_j$ for which their condition (iii) holds;
+the remark does not specify them.
+
+\begin{lemma}[{\cite[Remark~1.7]{DDL}}]\label{lem:eq}
+In the convention of \eqref{eq:ensemble} with $\beta=2$, the equilibrium measure of $V$ is $\rho(x)\,dx$ with
+$\rho(x)=\frac1{2\pi}(a^2-x^2)^{2k+1/2}\mathbf 1_{[-a,a]}(x)$, where $\mathbf 1_{[-a,a]}$ is the indicator function of
+$[-a,a]$. In particular $E=a$ and $\psi_V(x)=\frac{(2a)^{2k+1/2}}{2\pi}(a-x)^{2k+1/2}(1+O(a-x))$ as $x\uparrow a$.
+\end{lemma}
+
+\begin{proof}
+Since $\Gamma(2k+3/2)=(4k+1)!!\sqrt\pi/2^{2k+1}$,
+\[
+\int\rho=\frac{a^{4k+2}}{2\pi}\int_{-1}^1(1-y^2)^{2k+1/2}\,dy=\frac{a^{4k+2}}{2\pi}\cdot\frac{\sqrt\pi\,\Gamma(2k+3/2)}{\Gamma(2k+2)}
+=\frac{a^{4k+2}(4k+1)!!}{2^{2k+2}(2k+1)!}=1.
+\]
+Let $G(z)=\int\rho(x)(z-x)^{-1}dx$. The function $F=\frac12(V'-Q)$ is analytic on $\C\setminus[-a,a]$ and tends to $0$
+at infinity. On $(-a,a)$ the boundary values of $Q$ from above and below are $Q_\pm(x)=\pm i(a^2-x^2)^{2k+1/2}$, so
+$F_--F_+=\frac12(Q_+-Q_-)=2\pi i\rho(x)$, the same jump as $G$. So $F-G$ is analytic off $\{\pm a\}$, bounded near
+$\pm a$, hence entire, and it tends to $0$ at infinity; thus $G=F$. In particular $F_++F_-=V'$ on $(-a,a)$, that is,
+$V'(x)=2\,\mathrm{p.v.}\!\int\rho(t)(x-t)^{-1}dt$, and the effective potential
+$\mathcal U(x)=V(x)-2\int\log|x-t|\rho(t)\,dt$ is constant on $[-a,a]$. For real $x\notin[-a,a]$, $\mathcal U'(x)=V'(x)-2G(x)=Q(x)$,
+which is positive for $x>a$ and negative for $x<-a$. Hence $\mathcal U$ is strictly larger off $[-a,a]$ than on it, and the
+Euler--Lagrange characterisation \cite[Theorem~I.3.3]{ST} identifies $\rho$ as the equilibrium density. The expansion
+at $a$ follows from $a^2-x^2=(a-x)(2a-(a-x))$.
+\end{proof}
+
+So $V$ has one-interval support $[-a,a]$, positive density inside, and singular edges of exponent $2k+1/2$ at both
+ends; only the right one enters \cref{thm:counter}. For $\beta=2$ the ensemble \eqref{eq:ensemble} with this $V$ is the
+unitary ensemble $e^{-n\operatorname{Tr}V(M)}dM$ of \cite[(1.1)]{DDL} with all deformation parameters $t_j$ equal to $0$.
+
+\begin{lemma}\label{lem:ddl}
+$V$ satisfies \cite[Assumptions~1.1]{DDL}, with $A=a$ and $\psi\equiv1/(2\pi)$ in \cite[(1.40)]{DDL}, for suitable even
+polynomials $V_1,\dots,V_{2k}$ with $\deg V_j=2j$.
+\end{lemma}
+
+\begin{proof}
+Part (ii) of \cite[Assumptions~1.1]{DDL} is \cref{lem:eq}; the strict inequality off $[-a,a]$ that it requires
+is shown in the proof of \cref{lem:eq}. In part (i), $V$ is an even polynomial, and since
+$\deg V_j\le4k<\deg V$ and the leading coefficient of $V$ is positive, the growth condition \cite[(1.2)]{DDL} holds
+uniformly for $|t_j|\le1$. It remains to find $V_j$ satisfying \cite[(1.41)]{DDL}.
+
+Let $R(z)=((z-a)(z+a))^{1/2}$ on $\C\setminus[-a,a]$ with $R(z)/z\to1$ as $z\to\infty$. For an even polynomial $J$ the function
+$RJ'$ is analytic off $[-a,a]$ and even, so at infinity $RJ'=\omega_J+O(z^{-2})$ with $\omega_J$ an even polynomial.
+Moving the contour of \cite[(1.42)]{DDL} to a large circle shows that the function defined there, for $J=V_j$, is
+$\omega_{V_j}$. Since $R(z)=z(1-a^2z^{-2})^{1/2}$, for $J=x^{2m}$ the polynomial $\omega_J$ has degree $2m$ and leading
+coefficient $2m$. Hence $J\mapsto\omega_J$ is injective on the span of $x^2,\dots,x^{2j}$, and its image has dimension
+$j$ inside the $(j+1)$-dimensional space of even polynomials of degree at most $2j$. For a polynomial $w$ let $\ell(w)$ be
+the coefficient of $z^{-1}$ in the expansion of $w/R$ at infinity. Since $\omega_J/R=J'-(RJ'-\omega_J)/R=J'+O(z^{-3})$
+and $J'$ is a polynomial, $\ell(\omega_J)=0$. As $\ell(1)=1$, the kernel of $\ell$ on even polynomials of degree at
+most $2j$ has dimension $j$, so it is exactly the image of $J\mapsto\omega_J$.
+
+For $m\ge0$, $\ell\bigl((z^2-a^2)^m\bigr)$ is the coefficient of $z^{-1}$ in
+$(z^2-a^2)^{m-1/2}=z^{2m-1}(1-a^2z^{-2})^{m-1/2}$, that is, $\binom{m-1/2}{m}(-a^2)^m$, which is not $0$ because
+$m-1/2$ is not an integer. Put
+\[
+\Pi_j(z)=(z^2-a^2)^{j-1}\Bigl(\ell\bigl((z^2-a^2)^j\bigr)-\ell\bigl((z^2-a^2)^{j-1}\bigr)(z^2-a^2)\Bigr),\qquad j=1,\dots,2k.
+\]
+Then $\Pi_j$ is even of degree $2j$ and $\ell(\Pi_j)=0$, so $\Pi_j=\omega_{V_j}$ for an even polynomial $V_j$ of
+degree $2j$. The second factor of $\Pi_j$ takes the value $\ell((z^2-a^2)^j)\ne0$ at $\pm a$, so $\Pi_j$ vanishes at
+$\pm a$ to order exactly $j-1$, which is \cite[(1.41)]{DDL}.
+\end{proof}
+
+The deformation directions $V_j$ enter only through $V+\sum_jt_jV_j$, and below all $t_j$ are $0$.
+
+\begin{proof}[Proof of \cref{cor:all-k}]
+Take $t_j=0$ for every $j$ and every $n$. Then all the limits $\widehat t_j$ of \cite[(1.63)]{DDL} are $0$, so all the
+parameters of the limit kernel in \cite[Theorem~1.9]{DDL} are $0$, and $K_n$ is the kernel $K_n^{(\mathbf t)}$ of
+\cite[(1.3)]{DDL} at $\mathbf t=0$. By \cref{lem:ddl} and \cite[Theorem~1.9]{DDL}, the relation \cite[(1.24)]{DDL}
+holds at the right edge $a$, uniformly for $u$ and $v$ in compact subsets of $\R$. So, with $E=a$ and $\kappa$ the scaling
+constant of \cite[Theorem~1.9]{DDL}, the kernels $\widetilde K_n$ of \cref{thm:counter} converge uniformly on compact
+subsets of $\R^2$ to the kernel of \cite[(1.25)]{DDL},
+\[
+K(u,v)=\frac{\Psi_1(u)\Psi_2(v)-\Psi_1(v)\Psi_2(u)}{-2\pi i(u-v)},
+\]
+where $\Psi$ is the solution of the Riemann--Hilbert problem of \cite[Section~1.4]{DDL} with all
+parameters equal to $0$, and $\Psi_1,\Psi_2$ are the analytic extensions of its entries $\Psi_{11},\Psi_{21}$ from the sector
+between $\Gamma_1$ and $\Gamma_2$. The kernel $K$ is continuous.
+
+This kernel is a dilation of the kernel of Claeys, Its and Krasovsky. Let $\nu=2^{2/(4k+3)}$, so that
+$\nu^{(4k+3)/2}=2$, and put $\Phi(\zeta)=\nu^{-\sigma_3/4}\Psi(\zeta/\nu)$, where $\sigma_3=\mathrm{diag}(1,-1)$. The contour $\Gamma_1\cup\dots\cup\Gamma_4$ of
+\cite[Section~1.4]{DDL}, with its orientation, and the jump matrices \cite[(1.33)--(1.35)]{DDL} are those of
+\cite[(1.16)--(1.18)]{CIK}; the contour is invariant under $\zeta\mapsto\zeta/\nu$, and $\Phi$ is bounded near $0$. With
+all parameters $0$ the exponent in \cite[(1.38)]{DDL} is $\frac{4}{4k+3}\zeta^{(4k+3)/2}$, so
+$\frac4{4k+3}(\zeta/\nu)^{(4k+3)/2}=\frac2{4k+3}\zeta^{(4k+3)/2}$, the exponent of \cite[(1.21)]{CIK} with
+$t_0=\dots=t_{2k-1}=0$. Since $(\zeta/\nu)^{-\sigma_3/4}=\nu^{\sigma_3/4}\zeta^{-\sigma_3/4}$, the expansion
+\cite[(1.36)]{DDL} becomes
+\[
+\Phi(\zeta)=\zeta^{-\sigma_3/4}\mathcal N\bigl(I+\Phi_\infty\zeta^{-1/2}+O(\zeta^{-1})\bigr)e^{-\vartheta(\zeta)\sigma_3},\qquad
+\vartheta(\zeta)=\frac{2}{4k+3}\zeta^{(4k+3)/2},
+\]
+with a constant matrix $\Phi_\infty$ and the matrix $\mathcal N$ of \cite[(1.37)]{DDL}, which is that of \cite[(1.20)]{CIK}. So
+$\Phi$ solves the Riemann--Hilbert problem of \cite[Section~1]{CIK} with $t_0=\dots=t_{2k-1}=0$. By
+\cite[Remark~1.4]{CIK} the kernel $K^{(k)}$ of \cite[(1.14)]{CIK} does not depend on which solution is used, so it may be
+computed from $\Phi$. The sector between $\Gamma_1$ and $\Gamma_2$ is invariant under the dilation, and
+$\Phi_{11}(\zeta)=\nu^{-1/4}\Psi_{11}(\zeta/\nu)$, $\Phi_{21}(\zeta)=\nu^{1/4}\Psi_{21}(\zeta/\nu)$. Comparing
+\cite[(1.14)]{CIK} with the formula for $K$ above gives
+\[
+K(u,v)=\nu\,K^{(k)}(\nu u,\nu v;0,\dots,0).
+\]
+
+By \cite[(1.23)]{CIK} there are $c,C,x_0>0$ with $|K^{(k)}(x,y;0,\dots,0)|\le Ce^{-cx^{p}-cy^{p}}$ for $x,y\ge x_0$,
+$x\ne y$; letting $y\to x$ and using continuity, the same bound holds for $x=y\ge x_0$. With $\nu^p=2$ this gives
+$K(u,u)\le C\nu e^{-4cu^{p}}$ for $u\ge x_0/\nu$, and $K(u,u)$ is bounded on $[1,x_0/\nu]$ by continuity. So
+$K(u,u)\le C'e^{-c'u^{p}}$ for $u\ge1$, and for $s\ge1$, since $u^p-s^p\ge ps^{p-1}(u-s)\ge u-s$ for $u\ge s$,
+\[
+\int_s^\infty K(u,u)\,du\le C'e^{-c's^{p}}\int_s^\infty e^{-c'(u-s)}\,du=\frac{C'}{c'}e^{-c's^{p}},
+\]
+which is \eqref{eq:H}. \Cref{thm:counter} now applies to $V$ with $E=a$, which proves \cref{cor:all-k}.
+\end{proof}
+
+\section{Proof of \texorpdfstring{\cref{thm:counter}}{Theorem 1.2}}
+
+Let $L_n=\kappa n^{h}(\lambda_{\max}-E)$, and suppose that $L_{n_j}$ converges in law along some subsequence to a
+random variable $L$ with values in $\R$. For $s<T$, the portmanteau theorem for the open interval $(s,T)$ and the
+bound of a probability by an expected count give, with $N_j(s,T)$ the number of $i$ with
+$s<\kappa n_j^h(\lambda_i-E)<T$,
+\[
+\Prob(s<L<T)\le\liminf_j\Prob(s<L_{n_j}<T)\le\limsup_j\E N_j(s,T)=\int_s^TK(u,u)\,du,
+\]
+where the last step is $\E\#\{i:\lambda_i\in I\}=\int_IK_n(x,x)\,dx$, the change of variables to $\widetilde K_n$, and uniform
+convergence on the compact interval $[s,T]$. The function $K(u,u)$ is nonnegative, as a limit of one-point densities.
+Letting $T\to\infty$ and using \eqref{eq:H},
+\begin{equation}\label{eq:upper}
+\Prob(L>s)\le\int_s^\infty K(u,u)\,du\le C'e^{-c s^{p}}\qquad(s\ge1).
+\end{equation}
+Only the limit kernel on compact intervals enters; the finite-$n$ kernels are never integrated over an unbounded
+range.
+
+Now suppose $\gamma n_j^h(E-\lambda_{\max})\to\Lambda_0$ in law for some $\gamma>0$. Then $L_{n_j}\to L$ with
+$L=-(\kappa/\gamma)\Lambda_0$ in law, and by \cref{thm:tail} with $\beta=2$,
+\[
+\Prob(L>s)=\Prob\bigl(\Lambda_0<-(\gamma/\kappa)s\bigr)\ge\exp\bigl(-C''s^{(4k+3)/(4k+2)}\bigr)
+\]
+for large $s$. Since $(4k+3)/(4k+2)<2<p$, this contradicts \eqref{eq:upper}. \qed
+
+\medskip
+The lower bound used here needs much less than \cref{thm:tail}: by \eqref{eq:var} with a single fixed test function,
+$-\Lambda_0$ dominates a nondegenerate Gaussian variable, so $\Prob(-\Lambda_0>s)\ge e^{-Cs^2}$, which already
+contradicts \eqref{eq:upper}.
+
+\section*{Acknowledgments and funding}
+
+This work was done by multiple AI agents, Claude (Anthropic) and Codex (OpenAI), connected to Math
+Brain~\cite{MathBrainRepo} and working together inside the Brain framework~\cite{BrainFramework}, a shared, persistent
+memory in which the agents record claims, proofs, failed attempts and methods, retrieve one another's results,
+coordinate who works on what, and audit each other's work. For more on the Brain and Math Brain, see the Math Brain
+paper~\cite{MathBrainPaper}, the Math Brain repository~\cite{MathBrainRepo} and the Brain framework
+repository~\cite{BrainFramework}.
+
+The research presented in this paper was supported by the European Research Council (ERC) under the European
+Union's Horizon Europe research and innovation programme (grant agreement No.\ 101041711). It was also supported by the Simons
+Foundation (as part of the Collaboration on the Mathematical and Scientific Foundations of Deep Learning), by Heights Labs, by
+Convex Nexus Capital, and by the Israel Science Foundation (grants 2258/19 and 4101/25).
+
+\section*{Declaration of competing interest}
+
+The author holds equity in Heights Labs and Convex Nexus Capital and has a management role at Convex Nexus Capital.
+
+\section*{Declaration of generative AI and AI-assisted technologies}
+
+This paper is part of a broader research project on proving open problems with AI systems.
+The proofs were developed with AI systems (OpenAI Codex and Anthropic Claude agents working under the author's
+direction), which also drafted the text. The conjecture is due to Krishnapur, Rider and Vir\'ag \cite{KRVarxiv}, the
+case $k=1$ and the lower-bound exponent are due to Baslingker \cite{Bas}, and the edge kernel inputs are those of
+\cite{DDL,CIK}. The author directed the work and is responsible for the content of the paper and for decisions
+concerning its dissemination.
+
+\section*{Data and code availability}
+
+No data or code were used. All proofs are in the paper.
+
+\begin{appendices}
+\section{Notation}\label{app:notation}
+
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.22\textwidth}>{\raggedright\arraybackslash}p{0.49\textwidth}>{\raggedright\arraybackslash}p{0.2\textwidth}@{}}
+Symbol & Meaning & First appears\\[2pt]
+$\beta$, $n$, $V$ & inverse temperature, number of points, potential & \eqref{eq:ensemble}\\
+$\mu_V$, $\psi_V$ & equilibrium measure and its density & \cref{sec:intro}\\
+$E$ & right end of the support of $\mu_V$ & \cref{sec:intro}\\
+$\lambda_i$, $\lambda_{\max}$ & the points of \eqref{eq:ensemble} and the largest one & \cref{sec:intro}\\
+$S_{\beta,k}$, $W$ & the operator \eqref{eq:operator}, standard Brownian motion & \eqref{eq:operator}\\
+$\Lambda_0$ & lowest eigenvalue of $S_{\beta,k}$ & \cref{sec:intro}\\
+$\gamma$, $\kappa$ & scale constants of the conjecture and of the kernel limit & \cref{sec:intro}\\
+$g$, $d$, $v_k$ & $k/(2k+1)$, $1/(2k+1)$, the constant in \eqref{eq:gd} & \eqref{eq:gd}\\
+$K_n$, $\widetilde K_n$, $K$ & correlation kernel, its rescaling, its limit & \cref{sec:intro}\\
+$\varphi_j$ & orthonormal polynomials for the weight $e^{-nV}$ & \cref{sec:intro}\\
+$p$, $h$ & $2k+3/2$ and $1/p$ & \cref{thm:counter}\\
+$c$, $C$ & positive constants, changing from line to line & \cref{sec:intro}\\
+$\Prob$, $\E$ & probability and expectation & \cref{sec:intro}\\
+$\mathcal E(u)$, $P(u)$, $X(u)$ & energy, confining term, noise term of the form & \cref{sec:operator}\\
+$I_j$, $Z_j$, $B$, $b$ & unit intervals, local noise integrals, their supremum, a level & \cref{sec:operator}\\
+$q$, $\mathcal H$, $D$ & quadratic form of $S_{\beta,k}$, its form domain, a dense set & \cref{sec:operator}\\
+$U_s$, $r_s$, $f$ & unitary dilation, the threshold $\frac{\sqrt\beta}{2}s^{3/4-g/2}$, a test function & \cref{sec:operator}\\
+$a$, $\rho$, $Q$, $\mathcal U$ & right end, density, $(z^2-a^2)^{2k+1/2}$, effective potential & \cref{sec:ensemble}\\
+$G$, $F$ & Cauchy transform of $\rho$ and $\frac12(V'-Q)$ & \cref{sec:ensemble}\\
+$R$, $\omega_J$, $\ell(w)$ & $((z-a)(z+a))^{1/2}$, polynomial part of $RJ'$, coefficient of $z^{-1}$ in $w/R$ & \cref{sec:ensemble}\\
+$V_j$, $t_j$, $\Pi_j$ & deformation directions and parameters of \cite{DDL}, the polynomial $\omega_{V_j}$ & \cref{sec:ensemble}\\
+$\Psi$, $\Psi_1,\Psi_2$ & model solution of \cite[Section~1.4]{DDL}, its first column & \cref{sec:ensemble}\\
+$\nu$, $\sigma_3$, $\Phi$, $K^{(k)}$ & $2^{2/(4k+3)}$, $\mathrm{diag}(1,-1)$, $\nu^{-\sigma_3/4}\Psi(\zeta/\nu)$, kernel of \cite[(1.14)]{CIK} & \cref{sec:ensemble}\\
+$\mathcal N$, $\Phi_\infty$, $\vartheta$ & constant matrices and exponent of the model problem & \cref{sec:ensemble}\\
+$x_0$ & a threshold in \cite[(1.23)]{CIK} & \cref{sec:ensemble}\\
+$L_n$, $N_j(s,T)$ & rescaled largest point, count of rescaled points in $(s,T)$ & proof of \cref{thm:counter}
+\end{tabular}
+\end{appendices}
+
+\begin{thebibliography}{99}
+
+\bibitem{AT}
+R.~J.~Adler and J.~E.~Taylor, \emph{Random fields and geometry}, Springer Monographs in Mathematics, Springer, New
+York, 2007, \doi{10.1007/978-0-387-48116-6}.
+
+\bibitem{Atkin}
+M.~R.~Atkin, \emph{A Riemann--Hilbert problem for equations of Painlev\'e type in the one matrix model with
+semi-classical potential}, arXiv:1504.04539v1, 2015,
+\url{https://arxiv.org/abs/1504.04539v1}.
+
+\bibitem{Bas}
+J.~Baslingker, \emph{Stochastic domination in beta ensembles}, J. Math. Phys.\ 66 (2025), no.~5, 053303,
+\doi{10.1063/5.0254593}; numbering as in arXiv:2304.09236v2.
+
+\bibitem{Borell}
+C.~Borell, \emph{The Brunn--Minkowski inequality in Gauss space}, Invent. Math.\ 30 (1975), no.~2, 207--216,
+\doi{10.1007/BF01425510}.
+
+\bibitem{CIK}
+T.~Claeys, A.~Its and I.~Krasovsky, \emph{Higher-order analogues of the Tracy--Widom distribution and the Painlev\'e
+II hierarchy}, Comm. Pure Appl. Math.\ 63 (2010), no.~3, 362--412, \doi{10.1002/cpa.20284}; numbering as in arXiv:0901.2473v1.
+
+\bibitem{CKLW}
+T.~Claeys, A.~B.~J.~Kuijlaars, K.~Liechty and D.~Wang, \emph{Propagation of singular behavior for Gaussian
+perturbations of random matrices}, Comm. Math. Phys.\ 362 (2018), 1--54, \doi{10.1007/s00220-018-3195-8}; numbering as in arXiv:1608.05870v1.
+
+\bibitem{CV}
+T.~Claeys and M.~Vanlessen, \emph{Universality of a double scaling limit near singular edge points in random matrix
+models}, Comm. Math. Phys.\ 273 (2007), no.~2, 499--532, \doi{10.1007/s00220-007-0256-9}.
+
+\bibitem{DDL}
+D.~Dai, J.-H.~Du and C.~Lu, \emph{Asymptotics of Hankel determinants for potentials with singular edge points},
+preprint, arXiv:2609.26412v1, 2026,
+\url{https://arxiv.org/abs/2609.26412v1}.
+
+\bibitem{DV}
+L.~Dumaz and B.~Vir\'ag, \emph{The right tail exponent of the Tracy--Widom $\beta$ distribution}, Ann. Inst. Henri
+Poincar\'e Probab. Stat.\ 49 (2013), no.~4, 915--933, \doi{10.1214/11-AIHP475}.
+
+\bibitem{KRV}
+M.~Krishnapur, B.~Rider and B.~Vir\'ag, \emph{Universality of the stochastic Airy operator}, Comm. Pure Appl. Math.\
+69 (2016), no.~1, 145--199, \doi{10.1002/cpa.21573}.
+
+\bibitem{MS}
+S.~N. Majumdar and G.~Schehr, \emph{Top eigenvalue of a random matrix: large deviations and third order phase
+transition}, J. Stat. Mech. Theory Exp. (2014), P01012, \doi{10.1088/1742-5468/2014/01/P01012}.
+
+\bibitem{KRVarxiv}
+M.~Krishnapur, B.~Rider and B.~Vir\'ag, \emph{Universality of the stochastic Airy operator}, arXiv:1306.4832v1, 2013,
+\url{https://arxiv.org/abs/1306.4832v1}.
+
+\bibitem{RRV}
+J.~A.~Ram\'irez, B.~Rider and B.~Vir\'ag, \emph{Beta ensembles, stochastic Airy spectrum, and a diffusion}, J. Amer.
+Math. Soc.\ 24 (2011), no.~4, 919--944, \doi{10.1090/S0894-0347-2011-00703-0}.
+
+\bibitem{RS2}
+M.~Reed and B.~Simon, \emph{Methods of modern mathematical physics II: Fourier analysis, self-adjointness}, Academic
+Press, New York, 1975.
+
+\bibitem{ST}
+E.~B.~Saff and V.~Totik, \emph{Logarithmic potentials with external fields}, Grundlehren der mathematischen
+Wissenschaften 316, Springer, Berlin, 1997.
+
+\bibitem{TIS}
+B.~S.~Tsirelson, I.~A.~Ibragimov and V.~N.~Sudakov, \emph{Norms of Gaussian sample functions}, in Proceedings of the
+Third Japan--USSR Symposium on Probability Theory, Lecture Notes in Math.\ 550, Springer, Berlin, 1976, 20--41.
+
+\bibitem{Virag}
+B.~Vir\'ag, \emph{Operator limits of random matrices}, in Proceedings of the International Congress of Mathematicians,
+Seoul 2014, Vol.~IV; arXiv:1804.06953.
+
+\bibitem{MathBrainRepo}
+Y.~Shmalo, \emph{Math Brain: public snapshot, code and tests}, 2026.
+\url{https://github.com/yspennstate/math-brain-public}
+
+\bibitem{MathBrainPaper}
+Y.~Shmalo, \emph{Math Brain: shared, auditable memory for multi-agent mathematical research}, October 2026.
+\url{https://github.com/yspennstate/math-brain-public/tree/main/papers/math-brain-2026-10-24},
+\doi{10.5281/zenodo.24150837}.
+
+\bibitem{BrainFramework}
+Y.~Shmalo, \emph{Brain Framework}, public software repository, 2026.
+\url{https://github.com/yspennstate/brain-framework-public}
+
+\end{thebibliography}
+
+\end{document}
